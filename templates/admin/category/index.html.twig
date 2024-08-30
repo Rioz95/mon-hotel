@@ -1,0 +1,40 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Categorie management
+{% endblock %}
+
+{% block body %}
+	<div class="container my-5">
+		<h1>CATEGORIES LIST</h1>
+		<a href="{{path('admin_category_new')}}" class="btn btn-primary">
+			<i class="fa-solid fa-plus"></i>Add Category
+		</a>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th class="text-center" scope="col">Id</th>
+					<th class="text-center" scope="col">Name</th>
+					<th class="text-center" scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for category in categories %}
+					<tr>
+						<td class="text-center">{{category.id}}</td>
+						<td class="text-center">{{category.name}}</td>
+						<td class="text-center">
+							<a href="" class="btn btn-danger">
+								<i class="fa-solid fa-trash"></i>
+							</a>
+							<a href="" class="btn btn-primary">
+								<i class="fa-solid fa-pen"></i>
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}
