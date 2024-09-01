@@ -77,7 +77,7 @@ class AdminRoomController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "La chambre  a été bien enregisttée !"
+                "La chambre <strong>{$room->getType()}</strong> a été bien enregisttée !"
             );
 
             /* return $this->redirectToRoute('ads_show', [

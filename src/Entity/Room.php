@@ -3,11 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\RoomRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RoomRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Room
 {
     #[ORM\Id]
@@ -39,6 +42,23 @@ class Room
 
     #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'room', cascade: ["persist"])]
     private Collection $images;
+
+    #[ORM\Column(length: 255)]
+    private ?string $type = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
+    #[ORM\PostPersist]
+    #[ORM\PreUpdate]
+    public function initializeSlug()
+    {
+        if (empty($this->slug)) {
+
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->type);
+        }
+    }
 
     public function __construct()
     {
@@ -162,6 +182,30 @@ class Room
                 $image->setRoom(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): static
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }

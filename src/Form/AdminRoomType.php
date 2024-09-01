@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
@@ -21,8 +22,14 @@ class AdminRoomType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('type', TextType::class, [
+                'label' => 'Type de chambre',
+                'attr' => [
+                    'placeholder' => "Entrer le type de vore chambre"
+                ]
+            ])
             ->add('category', EntityType::class, [
-                'label' => 'Type',
+                'label' => 'Categorie',
                 'class' => Category::class,
                 'choice_label' => 'name', // Le champ de l'entité à afficher dans la liste déroulante
                 'placeholder' => 'Choisissez un type', // Texte par défaut
