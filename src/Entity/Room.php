@@ -49,7 +49,15 @@ class Room
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
-    #[ORM\PostPersist]
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+        $this->setImage("room.jpg");
+    }
+
+
+    #[ORM\PrePersist]
     #[ORM\PreUpdate]
     public function initializeSlug()
     {
@@ -59,13 +67,6 @@ class Room
             $this->slug = $slugify->slugify($this->type);
         }
     }
-
-    public function __construct()
-    {
-        $this->images = new ArrayCollection();
-        $this->setImage("room.jpg");
-    }
-
 
     public function getId(): ?int
     {

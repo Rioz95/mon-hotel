@@ -28,6 +28,13 @@ class AdminRoomType extends AbstractType
                     'placeholder' => "Entrer le type de vore chambre"
                 ]
             ])
+            ->add('slug', TextType::class, [
+                'label' => 'Url de votre chambre',
+                'attr' => [
+                    'placeholder' => "Entrer l'url de votre chambre'"
+                ],
+                'required' => false
+            ])
             ->add('category', EntityType::class, [
                 'label' => 'Categorie',
                 'class' => Category::class,
