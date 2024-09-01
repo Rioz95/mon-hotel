@@ -46,6 +46,11 @@ class AdminCategoryController extends AbstractController
             $entityManager->persist($category);
             $entityManager->flush();
 
+            $this->addFlash(
+                'success',
+                "La categorie <strong>{$category->getName()}</strong> a été bien ajouté !"
+            );
+
             return $this->redirectToRoute('admin_category');
         }
 
@@ -67,6 +72,11 @@ class AdminCategoryController extends AbstractController
             $entityManager->persist($category);
             $entityManager->flush();
 
+            $this->addFlash(
+                'success',
+                "La categorie a été bien modifié !"
+            );
+
             return $this->redirectToRoute('admin_category');
         }
 
@@ -76,5 +86,18 @@ class AdminCategoryController extends AbstractController
                 'form' => $form->createView()
             ]
         );
+    }
+    #[Route('/admin/category/{id}/delete', name: 'admin_category_delete')]
+    public function delete(HttpFoundationRequest $request, EntityManagerInterface $entityManager, Category $category): Response
+    {
+
+        $entityManager->remove($category);
+        $entityManager->flush();
+        $this->addFlash(
+            'success',
+            "La categorie <strong>{$category->getName()}</strong> a été bien supprimer !"
+        );
+
+        return $this->redirectToRoute('admin_category');
     }
 }

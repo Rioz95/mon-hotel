@@ -1,0 +1,55 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Room MANAGEMENT
+{% endblock %}
+
+{% block body %}
+	<div class="container py-3">
+		<h1 class="text-center text-black">ROOM MANAGEMENT
+		</h1>
+		{{ form_start(form) }}
+		<div class="row">
+			<div class="col-md-8">
+				{{ form_row(form.category) }}
+				{{ form_row(form.description) }}
+				{{ form_row(form.price) }}
+				{{ form_row(form.adult) }}
+				{{ form_row(form.child) }}
+				{{ form_row(form.images) }}
+
+
+				<input type="hidden" name="" id="widgets-counter" value="0">
+
+			</div>
+
+			<div class=" col-md-4">
+				<div>
+					<img src="{{asset("images/room/" ~ form.image.vars.value)}}" alt="" id="imageAffichee" class="ronded mx-auto img-thumbnail" style="display: block">
+				</div>
+				<div>
+					{{ form_row(form.imageFile,{'id':'imageFile'}) }}
+					{{ form_errors(form.imageFile) }}
+					<a class="btn btn-primary center" style="display: block;" id="ajoutimage">
+						<i class="fas fa-upload"></i>
+						Ajouter une image qui donne vraiment envie pour votre couverture
+					</a>
+				</div>
+			</div>
+		</div>
+		{#<div class="form-group"><button type="boutton" id="add-image" class="btn btn-primary my-4">Ajouter une image</button></div>#}
+		<button type="submit" class="btn btn-primary w-100">
+			<i class="fa-solid fa-check"></i>
+			Confirm
+		</button>
+
+		{{ form_end(form) }}
+
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{asset("/admin/js/gestionUpload.js")}}" defer></script>
+
+	<script src="/admin/js/ad.js"></script>
+{% endblock %}
