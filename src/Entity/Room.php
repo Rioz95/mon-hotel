@@ -40,7 +40,7 @@ class Room
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'room', cascade: ["persist"])]
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'room', cascade: ["persist", "remove"])]
     private Collection $images;
 
     #[ORM\Column(length: 255)]

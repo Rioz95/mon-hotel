@@ -4,5 +4,52 @@
 {% endblock %}
 
 {% block body %}
-	<h1>ROOM MANAGEMENT</h1>
+	<div class="container my-5">
+		<h1 class="text-black text-center">ROOM LIST</h1>
+		<a href="{{path('admin_room_new')}}" class="btn btn-primary  mb-3">
+			<i class="fa-solid fa-plus"></i>
+			Add Room
+		</a>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th class="text-center" scope="col">Id</th>
+					<th class="text-center" scope="col">Type</th>
+					<th class="text-center" scope="col">Category</th>
+					<th class="text-center" scope="col">Description</th>
+					<th class="text-center" scope="col">Adult</th>
+					<th class="text-center" scope="col">Child</th>
+					<th class="text-center" scope="col">Image</th>
+					<th class="text-center" scope="col">Price</th>
+					<th class="text-center" scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for room in rooms %}
+					<tr>
+						<td class="text-center">{{room.id}}</td>
+						<td class="text-center">{{room.type}}</td>
+						<td class="text-center">{{room.category.name}}</td>
+						<td class="text-center">{{room.description}}</td>
+						<td class="text-center">{{room.adult}}</td>
+						<td class="text-center">{{room.child}}</td>
+						<td><img src="{{asset("images/room/" ~ room.image)}}" alt="" id="imageAffichee" class="avatar avatar-micro" style="max-width: 80px;max-height: 80px;"></td>
+						<td class="text-center">{{room.price}}</td>
+						<td class="text-center">
+							<a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalSimple" data-titre="Suppression d'une Chambre" data-message="Ete vous sur de supprimer la chambre '{{room.category.name}}'" data-libelleboutton="Supprimer la chambre" data-lien="{{path('admin_room_delete', {'id': room.id})}}">
+								<i class="fas fa-trash"></i>
+							</a>
+							<a href="{{path('admin_room_edit', {'id': room.id})}}" class="btn btn-primary">
+								<i class="fa-solid fa-pen"></i>
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
+{% block javascripts %}
+	{% include "admin/include/_modal.html.twig" %}
 {% endblock %}

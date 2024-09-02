@@ -17,7 +17,7 @@ class Image
     private ?string $caption = null;
 
     #[ORM\ManyToOne(inversedBy: 'images')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Room $room = null;
 
     public function getId(): ?int

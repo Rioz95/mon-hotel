@@ -13,6 +13,8 @@
 		<link rel="stylesheet" href="/admin/css/bootstrap.min.css">
 		<link rel=" stylesheet" href=" /admnin/css/app.css">
 		<link rel="stylesheet" href="/admin/css/bootstrap-datepicker.css">
+		<link rel="stylesheet" href="/admin/css/aos.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
 		<link
 		rel="stylesheet" href="admnin/css/all.min.css">
 	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
@@ -35,7 +37,7 @@
 							<a class="nav-link" href="{{path('admin_category')}}">Category</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Pricing</a>
+							<a class="nav-link" href="{{path('admin_room')}}">Room</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="#">About</a>
@@ -74,6 +76,8 @@
 		<script src="/admin/js/bootstrap.min.js"></script>
 		<script src="/admin/js/all.min.js"></script>
 		<script src="/admin/js/bootstrap-datepicker.js"></script>
+		<script src="/adminjs/aos.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		{% block javascripts %}{% endblock %}
 
 	</body>
