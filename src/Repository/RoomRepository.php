@@ -2,17 +2,13 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Room;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<Room>
- *
- * @method Room|null find($id, $lockMode = null, $lockVersion = null)
- * @method Room|null findOneBy(array $criteria, array $orderBy = null)
- * @method Room[]    findAll()
- * @method Room[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class RoomRepository extends ServiceEntityRepository
 {
@@ -21,28 +17,39 @@ class RoomRepository extends ServiceEntityRepository
         parent::__construct($registry, Room::class);
     }
 
-//    /**
-//     * @return Room[] Returns an array of Room objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * Retourne toutes les chambres pour une catégorie donnée.
+     *
+     * @param Category $category
+     * @return Room[]
+     */
+    public function findByCategory(Category $category)
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.category = :category')
+            ->setParameter('category', $category)
+            ->orderBy('r.type', 'ASC') // Optionnel: tri par type de chambre
+            ->getQuery()
+            ->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Room
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * Retourne les chambres par type et catégorie.
+     *
+     * @param string $type
+     * @param Category $category
+     * @param int $limit
+     * @return Room[]
+     */
+    public function findByTypeAndCategory(string $type, Category $category, int $limit = 3)
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.type = :type')
+            ->andWhere('r.category = :category')
+            ->setParameter('type', $type)
+            ->setParameter('category', $category)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }

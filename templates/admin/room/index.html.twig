@@ -15,8 +15,8 @@
 			<thead>
 				<tr>
 					<th class="text-center" scope="col">Id</th>
-					<th class="text-center" scope="col">Type</th>
 					<th class="text-center" scope="col">Category</th>
+					<th class="text-center" scope="col">Type</th>
 					<th class="text-center" scope="col">Description</th>
 					<th class="text-center" scope="col">Adult</th>
 					<th class="text-center" scope="col">Child</th>
@@ -29,8 +29,8 @@
 				{% for room in rooms %}
 					<tr>
 						<td class="text-center">{{room.id}}</td>
-						<td class="text-center">{{room.type}}</td>
 						<td class="text-center">{{room.category.name}}</td>
+						<td class="text-center">{{room.type}}</td>
 						<td class="text-center">{{room.description}}</td>
 						<td class="text-center">{{room.adult}}</td>
 						<td class="text-center">{{room.child}}</td>

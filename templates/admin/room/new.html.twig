@@ -10,9 +10,9 @@
 		{{ form_start(form) }}
 		<div class="row">
 			<div class="col-md-8">
+				{{ form_row(form.category) }}
 				{{ form_row(form.type) }}
 				{{ form_row(form.slug) }}
-				{{ form_row(form.category) }}
 				{{ form_row(form.description) }}
 				{{ form_row(form.adult) }}
 				{{ form_row(form.child) }}
@@ -43,7 +43,6 @@
 			<i class="fa-solid fa-check"></i>
 			Confirm
 		</button>
-		<h2>Images</h2>
 		{{ form_end(form) }}
 
 	</div>
