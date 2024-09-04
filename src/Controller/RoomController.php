@@ -30,12 +30,13 @@ class RoomController extends AbstractController
         $roomsByCategory = [];
 
         foreach ($categories as $category) {
-            // Récupérer les types de chambres pour la catégorie
+            // Récupérer les types de chambres pour la catégorie (limiter à 3 types)
             $types = $this->roomRepository->createQueryBuilder('r')
                 ->select('r.type')
                 ->where('r.category = :category')
                 ->setParameter('category', $category)
                 ->distinct()
+                ->setMaxResults(3) // Limiter à 3 types
                 ->getQuery()
                 ->getResult();
 

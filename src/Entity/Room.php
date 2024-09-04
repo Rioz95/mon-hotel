@@ -49,11 +49,15 @@ class Room
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+    #[ORM\OneToMany(targetEntity: Booking::class, mappedBy: 'room')]
+    private Collection $bookings;
+
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->setImage("room.jpg");
+        $this->bookings = new ArrayCollection();
     }
 
 
@@ -207,6 +211,36 @@ class Room
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Booking>
+     */
+    public function getBookings(): Collection
+    {
+        return $this->bookings;
+    }
+
+    public function addBooking(Booking $booking): static
+    {
+        if (!$this->bookings->contains($booking)) {
+            $this->bookings->add($booking);
+            $booking->setRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBooking(Booking $booking): static
+    {
+        if ($this->bookings->removeElement($booking)) {
+            // set the owning side to null (unless already changed)
+            if ($booking->getRoom() === $this) {
+                $booking->setRoom(null);
+            }
+        }
 
         return $this;
     }

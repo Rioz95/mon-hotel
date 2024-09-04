@@ -1,0 +1,92 @@
+{% extends 'Booking/base.html.twig' %}
+
+{% block title %}Reservation
+{% endblock %}
+
+{% block content %}
+	<!-- Section d'En-tête avec Image de Fond -->
+	<section class="site-hero overlay" style="background-image: url(images/hero_4.jpg); background-size: cover; background-position: center; padding: 100px 0; text-align: center; color: #fff;">
+		<div class="container">
+			<div class="row site-hero-inner justify-content-center align-items-center text-center">
+				<div class="col-md-10" data-aos="fade-up">
+					<h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 0;" class="text white">Réservez votre séjour</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Section pour le formulaire de réservation -->
+	<section class="reservation-form-section" style="background: rgba(255, 255, 255, 0.9); border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 30px; margin-top: -50px; position: relative; z-index: 2;">
+		<div class="container">
+			<div class="row justify-content-center align-items-center text-center">
+				<div class="col-md-8 col-lg-6">
+					<h2 style="margin-bottom: 20px; font-size: 1.75rem; font-weight: bold;">Vérifiez la disponibilité</h2>
+					<form action="#">
+						<div
+							class="row">
+							<!-- Check In -->
+							<div class="col-md-6 mb-3">
+								<label for="checkin_date" class="font-weight-bold text-black">Check In</label>
+								<div class="field-icon-wrap" style="position: relative;">
+									<div class="icon" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); font-size: 18px; color: #333;">
+										<span class="icon-calendar"></span>
+									</div>
+									<input type="text" id="checkin_date" class="form-control" style="padding-left: 35px; width: 100%; box-sizing: border-box;">
+								</div>
+							</div>
+
+							<!-- Check Out -->
+							<div class="col-md-6 mb-3">
+								<label for="checkout_date" class="font-weight-bold text-black">Check Out</label>
+								<div class="field-icon-wrap" style="position: relative;">
+									<div class="icon" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); font-size: 18px; color: #333;">
+										<span class="icon-calendar"></span>
+									</div>
+									<input type="text" id="checkout_date" class="form-control" style="padding-left: 35px; width: 100%; box-sizing: border-box;">
+								</div>
+							</div>
+
+							<!-- Adults -->
+							<div class="col-md-6 mb-3">
+								<label for="adults" class="font-weight-bold text-black">Adults</label>
+								<div class="field-icon-wrap" style="position: relative;">
+									<div class="icon" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); font-size: 18px; color: #333;">
+										<span class="ion-ios-arrow-down"></span>
+									</div>
+									<select name="" id="adults" class="form-control" style="padding-left: 35px; width: 100%; box-sizing: border-box;">
+										<option value="">1</option>
+										<option value="">2</option>
+										<option value="">3</option>
+										<option value="">4+</option>
+									</select>
+								</div>
+							</div>
+
+							<!-- Children -->
+							<div class="col-md-6 mb-3">
+								<label for="children" class="font-weight-bold text-black">Children</label>
+								<div class="field-icon-wrap" style="position: relative;">
+									<div class="icon" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); font-size: 18px; color: #333;">
+										<span class="ion-ios-arrow-down"></span>
+									</div>
+									<select name="" id="children" class="form-control" style="padding-left: 35px; width: 100%; box-sizing: border-box;">
+										<option value="">1</option>
+										<option value="">2</option>
+										<option value="">3</option>
+										<option value="">4+</option>
+									</select>
+								</div>
+							</div>
+
+							<!-- Submit Button -->
+							<div class="col-md-12 text-center mt-3">
+								<button class="btn btn-primary btn-block text-white" style="width: 100%; box-sizing: border-box;">Check Availability</button>
+							</div>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
