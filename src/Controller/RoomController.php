@@ -2,64 +2,24 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
-use App\Repository\CategoryRepository;
-use App\Repository\RoomRepository;
+use App\Service\RoomService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RoomController extends AbstractController
 {
-    private $roomRepository;
-    private $categoryRepository;
+    private $roomService;
 
-    public function __construct(RoomRepository $roomRepository, CategoryRepository $categoryRepository)
+    public function __construct(RoomService $roomService)
     {
-        $this->roomRepository = $roomRepository;
-        $this->categoryRepository = $categoryRepository;
+        $this->roomService = $roomService;
     }
 
     #[Route('/rooms', name: 'rooms')]
     public function index(): Response
     {
-        // Récupérer toutes les catégories
-        $categories = $this->categoryRepository->findAll();
-
-        // Préparer un tableau pour stocker les chambres par catégorie
-        $roomsByCategory = [];
-
-        foreach ($categories as $category) {
-            // Récupérer les types de chambres pour la catégorie (limiter à 3 types)
-            $types = $this->roomRepository->createQueryBuilder('r')
-                ->select('r.type')
-                ->where('r.category = :category')
-                ->setParameter('category', $category)
-                ->distinct()
-                ->setMaxResults(3) // Limiter à 3 types
-                ->getQuery()
-                ->getResult();
-
-            // Préparer les chambres par type pour chaque catégorie
-            $roomsByCategory[$category->getName()] = [
-                'category' => $category,
-                'rooms' => []
-            ];
-
-            foreach ($types as $type) {
-                $typeName = $type['type']; // Assurer que le type est une chaîne de caractères
-                $rooms = $this->roomRepository->findByTypeAndCategory($typeName, $category);
-
-                if (!empty($rooms)) {
-                    $roomsByCategory[$category->getName()]['rooms'][$typeName] = $rooms;
-                }
-            }
-        }
-
-        // Filtrer les catégories vides
-        $roomsByCategory = array_filter($roomsByCategory, function ($data) {
-            return !empty($data['rooms']);
-        });
+        $roomsByCategory = $this->roomService->getRoomsByCategory();
 
         return $this->render('room/index.html.twig', [
             'roomsByCategory' => $roomsByCategory,
