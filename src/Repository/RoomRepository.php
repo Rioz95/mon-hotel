@@ -52,4 +52,15 @@ class RoomRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findAvailableRooms(\DateTimeInterface $startDate, \DateTimeInterface $endDate)
+    {
+        $qb = $this->createQueryBuilder('r')
+            ->leftJoin('r.bookings', 'b')
+            ->where('b.startDate > :endDate OR b.endDate < :startDate OR b.id IS NULL')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate);
+
+        return $qb->getQuery()->getResult();
+    }
 }

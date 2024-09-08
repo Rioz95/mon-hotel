@@ -31,27 +31,11 @@
 		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
-		<style>
-			@keyframes gradientAnimation {
-				0% {
-					background-position: 0 0;
-				}
-				50% {
-					background-position: 100% 100%;
-				}
-				100% {
-					background-position: 0 0;
-				}
-			}
-
-			/* Importer une police de style graffiti */
-			@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
-		</style>
 		<header class="site-header js-site-header">
 			<div class="container-fluid">
 				<div class="row align-items-center">
-					<div class="col-6 col-lg-4 site-logo" data-aos="fade" style="display: inline-block;padding: 15px 30px; background: linear-gradient(45deg, #ff0000, #0000ff); /* Dégradé rouge à bleu */border-radius: 10px;box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);text-decoration: none;color: #fff;font-family: 'Creepster', cursive; /* Utilisation d'une police de style graffiti */font-size: 2.5rem; /* Taille du texte */font-weight: bold;text-align: center;letter-spacing: 2px;text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5), -1px -1px 2px rgba(255, 255, 255, 0.5); /* Ombre portée du texte */background-size: 200% 200%; /* Effet de dégradé animé */transition: transform 0.3s ease, text-shadow 0.3s ease;animation: gradientAnimation 5s ease infinite;">
-						<a href="index.html" style="text-decoration: none; color: inherit;">Hotel du monde</a>
+					<div class="col-6 col-lg-4 site-logo" data-aos="fade">
+						<a href="{{path('home')}}" style="text-decoration: none; color: inherit;">Hotel du monde</a>
 					</div>
 
 					<div class="col-6 col-lg-8">
@@ -71,7 +55,7 @@
 										<div class="col-md-6 mx-auto">
 											<ul class="list-unstyled menu">
 												<li class="active">
-													<a href="index.html">Home</a>
+													<a href="{{path('home')}}">Home</a>
 												</li>
 												<li>
 													<a href="{{path('rooms')}}">Rooms</a>
@@ -86,7 +70,7 @@
 													<a href="contact.html">Contact</a>
 												</li>
 												<li>
-													<a href="{{path('booking')}}">Reservation</a>
+													<a href="{{path('check_availability')}}">Reservation</a>
 												</li>
 											</ul>
 										</div>

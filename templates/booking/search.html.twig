@@ -1,0 +1,46 @@
+{% extends 'Booking/base.html.twig' %}
+
+{% block title %}Reservation
+{% endblock %}
+
+{% block content %}
+	<!-- Section d'En-tête avec Image de Fond -->
+	<section class="site-hero overlay" style="background-image: url(images/hero_4.jpg); background-size: cover; background-position: center; padding: 100px 0; text-align: center; color: #fff;">
+		<div class="container">
+			<div class="row site-hero-inner justify-content-center align-items-center text-center">
+				<div class="col-md-10" data-aos="fade-up">
+					<h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 0;" class="text white">Réservez votre séjour</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Section pour le formulaire de réservation -->
+	<section class="reservation-form-section" style="background: rgba(255, 255, 255, 0.9); border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 30px; margin-top: -50px; position: relative; z-index: 2;">
+		<div class="container">
+			<div class="row justify-content-center align-items-center text-center">
+				<div class="col-md-8 col-lg-6">
+					<h2 style="margin-bottom: 20px; font-size: 1.75rem; font-weight: bold;">Vérifiez la disponibilité</h2>
+					{{ form_start(form) }}
+					{{ form_row(form.startDate) }}
+					{{ form_row(form.endDate) }}
+					{{ form.search.vars.label }}
+					{{ form_end(form) }}
+
+					<h2>Résultats :</h2>
+					{% if availableRooms is not empty %}
+						<ul>
+							{% for room in availableRooms %}
+								<li>{{ room.description }}
+									-
+									{{ room.price }}€</li>
+							{% endfor %}
+						</ul>
+					{% else %}
+						<p>Aucune chambre n'est disponible pour ces dates.</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

@@ -37,6 +37,51 @@ class Booking
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $comment = null;
 
+    public function isBookableDates()
+    {
+        //1) Il faiut connaitre les dates qui sont impossible pour une chambre
+        $notAvailableDays = $this->room->getNotAvailableDays();
+        //2) Il faut comparer les dates choisies avec les dates impossible
+        $bookingDays = $this->getDays();
+
+        $formatDay = function ($day) {
+            return $day->format('Y-m-d');
+        };
+
+        //Tableau des chaine de caraftères de mes journées
+        $days = array_map($formatDay, $bookingDays);
+
+        $notAvailable = array_map($formatDay, $notAvailableDays);
+
+        foreach ($days as $day) {
+            if (array_search($day, $notAvailable) !== false)
+                return false;
+        }
+        return true;
+
+        // Vérifier la capacité de la chambre
+        return $this->room->isCapacitySufficient($adults, $children);
+    }
+
+    /**
+     * Permet de récuperer un tableau des journées qui correspond à ma réeservation
+     * 
+     * @return array
+     */
+    public function getDays()
+    {
+        $resultat = range(
+            $this->startDate->getTimestamp(),
+            $this->endDate->getTimestamp(),
+            24 * 60 * 60
+        );
+        $days = array_map(function ($dayTimestamp) {
+            return new \DateTime(date('Y-m-d', $dayTimestamp));
+        }, $resultat);
+
+        return $days;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

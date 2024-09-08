@@ -60,6 +60,32 @@ class Room
         $this->bookings = new ArrayCollection();
     }
 
+    public function isCapacitySufficient(int $adults, int $children): bool
+    {
+        return ($this->adult >= $adults) && ($this->child >= $children);
+    }
+
+
+    /**
+     * Permet d'obtenir un tableau des jours qui ne sont pas disponible pour cette chambre
+     *
+     * @return array
+     */
+    public function getNotAvailableDays()
+    {
+        $notAvailableDays = [];
+        foreach ($this->bookings as $booking) {
+            // calculer les jour qui se trouve entre la date d'arrivée et le départ
+            $resultat = range($booking->getStartDate()->getTimestamp(), $booking->getEndDate()->getTimestamp(), 24 * 60 * 60);
+            $days = array_map(function ($dayTimestamp) {
+                return new \DateTime(date('Y-m-d', $dayTimestamp));
+            }, $resultat);
+
+            $notAvailableDays = array_merge($notAvailableDays, $days);
+        }
+
+        return $notAvailableDays;
+    }
 
     #[ORM\PrePersist]
     #[ORM\PreUpdate]
